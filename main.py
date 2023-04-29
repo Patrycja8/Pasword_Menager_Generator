@@ -2,6 +2,8 @@ from tkinter import *
 import io
 import random
 import string
+from tkinter import messagebox
+import pyperclip
 
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
@@ -35,16 +37,20 @@ def Add():
     username = entry_username.get()
     password = entry_password.get()
     if website == "" or username == "" or password == "":
-        label_error=Label(window,text="Please fill all the fields")
-        label_error.grid(row=6,column=2)
-        label_error.config(bg=YELLOW,font=("Courier",15,"bold"))
+        # label_error=Label(window,text="Please fill all the fields")
+        # label_error.grid(row=6,column=2)
+        # label_error.config(bg=YELLOW,font=("Courier",15,"bold"))
+
+        messagebox.showinfo(title="INFO", message="Please fill all the fields")
+
 
     else:
         with io.open("Paswords.txt", mode="a", encoding="utf-8") as file:
             file.write( website+" | "+username+" | "+password +"\n")
-        label_error = Label(window, text="Success, Password added successfully")
-        label_error.grid(row=6, column=2)
-        label_error.config(bg=YELLOW, font=("Courier", 15, "bold"))
+        # label_error = Label(window, text="Success, Password added successfully")
+        # label_error.grid(row=6, column=2)
+        # label_error.config(bg=YELLOW, font=("Courier", 15, "bold"))
+        messagebox.showinfo(title="INFO", message="Success, Password added successfully")
         clear()
 
 
@@ -55,6 +61,7 @@ def generate():
     password = ''.join(random.choices(string.ascii_letters + string.digits, k=num))
     entry_password.delete(0,END)
     entry_password.insert(0,password)
+    pyperclip.copy(password)
 
 
 
